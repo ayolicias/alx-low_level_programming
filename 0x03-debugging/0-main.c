@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
-* main - tests function that prints if integer is positive or negative
-* Return: 0
-*/
+ * main - test function that print if integer is negative or positive
+ * Return: 0 for success
+ */
 
 int main(void)
 {
@@ -14,4 +14,3 @@ int main(void)
 
 	return (0);
 }
-
