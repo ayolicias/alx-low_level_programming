@@ -1,43 +1,40 @@
 #include "main.h"
+#include <stdlib.h>
+
 /**
- * argstostr - prints args
- * @ac: takes in width of grid
- * @av: height of grid
- * Return: the args one line at a time
+ * _realloc - reallocates a memory block using malloc and free.
+ * @ptr: pointer to previously allocated memory
+ * @old_size: size of allocated space for ptr
+ * @new_size: size of newly allocated space
+ *
+ * Return: pointer to newly allocated memory, or NULL if failure
  */
-
-char *argstostr(int ac, char **av)
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
-	char *str;
-	int count = 0, a = 0, b = 0, c = 0;
+	char *p;
+	unsigned int i, max = new_size;
+	char *oldp = ptr;
 
-	if (ac == 0 || av == NULL)
-		return (NULL);
-	while (a < ac)
+	if (ptr == NULL)
 	{
-		b = 0;
-		while (av[a][b] != '\0')
-		{
-			count++;
-			b++;
-		}
-		a++;
+		p = malloc(new_size);
+		return (p);
 	}
-	count = count + ac + 1;
-	str = malloc(sizeof(char) * count);
-	if (str == NULL)
+	else if (new_size == 0)
 	{
+		free(ptr);
 		return (NULL);
 	}
-	for (a = 0; a < ac; a++)
-	{
-		for (b = 0; av[a][b] != '\0'; b++)
-		{
-			str[c] = av[a][b];
-			c++;
-		}
-		str[c] = '\n';
-		c++;
-	}
-	return (str);
+	else if (new_size == old_size)
+		return (ptr);
+
+	p = malloc(new_size);
+	if (p == NULL)
+		return (NULL);
+	if (new_size > old_size)
+		max = old_size;
+	for (i = 0; i < max; i++)
+		p[i] = oldp[i];
+	free(ptr);
+	return (p);
 }
